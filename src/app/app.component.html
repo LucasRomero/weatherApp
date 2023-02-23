@@ -3,6 +3,6 @@
 </nav>
 
 <div class="container mx-auto">
-  <app-search></app-search>
-  <app-weather></app-weather>
+  <app-search (subtmited)="onSearch($event)" ></app-search>
+  <app-weather *ngIf="weather$ | async as weather" [weather]="weather"  ></app-weather>
 </div>
