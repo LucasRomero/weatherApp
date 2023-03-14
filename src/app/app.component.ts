@@ -15,7 +15,9 @@ export class AppComponent {
     private readonly weatherService: WeatherService,
     private readonly geoLocationService: GeoLocationService
   ) {
-    this.getLocation();
+    if (navigator?.geolocation) {
+      this.getLocation();
+    }
   }
 
   public onSearch(city: string): void {
