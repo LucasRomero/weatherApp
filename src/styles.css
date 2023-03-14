@@ -62,3 +62,8 @@ a {
   padding-bottom: auto;
 }
 
+@media (max-width: 900px) {
+  .container {
+    width: 95%;
+  }
+}
