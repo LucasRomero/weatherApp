@@ -4,5 +4,5 @@
 
 <div class="container mx-auto">
   <app-search (subtmited)="onSearch($event)" ></app-search>
-  <app-weather *ngIf="weather$ | async as weather" [weather]="weather"  ></app-weather>
+  <app-weather *ngIf="weather" [weather]="weather" ></app-weather>
 </div>

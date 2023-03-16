@@ -1,27 +1,75 @@
-<div class="card">
-  <div class="card__image">
-    <img src="{{ BASE_URL }}/{{ weather.weather[0].icon }}@2x.png" alt="weather.name">
+<!-- Section sys sunrise and suset -->
+
+
+<div class="city">{{ weather.location.name }}</div>
+<div class="wrap">
+  <div class="sys">
+    <img src="{{ weather?.current.condition.icon }}" alt="{{weather?.current.condition.icon}}">
+    <div class="sys__information">
+      <div class="sys__information--name">Sunrise:
+        <span class="sys__information--stat">{{weather?.forecast.forecastday[0].astro.sunrise}}</span>
+      </div>
+    </div>
+
+    <div class="sys__information">
+      <div class="sys__information--name">Sunset:
+        <span class="sys__information--stat">{{weather?.forecast.forecastday[0].astro.sunset}}</span>
+      </div>
+    </div>
   </div>
 
-  <div class="card__main"> {{weather.weather[0].main}} </div>
-  <div class="card__city"> {{weather.name}} , {{weather.sys.country}} / {{weather.main.temp | number:'1.0-0'}}&#8451;</div>
+  <!-- Section Main -->
+  <div class="main">
+    <div class="main__date">{{weather.current.last_updated | date:'fullDate'}}</div>
+    <div class="main__temp">{{weather.current.temp_c | number:'1.0-0'}}&#8451;</div>
 
-  <div class="card__stats">
-
-    <div class="card__stat width-33">
-      <div class="card__stat--stat">{{weather.main.pressure}} <sup>hPa</sup></div>
-      <div class="card__stat--name">Pressure</div>
+    <div class="main__feel">Feels like
+      <span class="main__feels_like">{{weather.current.feelslike_c }}&#8451;</span>
     </div>
 
-    <div class="card__stat width-33">
-      <div class="card__stat--stat">{{weather.main.humidity}} <sup>%</sup></div>
-      <div class="card__stat--name">Humidity</div>
-    </div>
-
-    <div class="card__stat width-33 no-border">
-      <div class="card__stat--stat">{{weather.wind.speed}} <sup>m/s</sup></div>
-      <div class="card__stat--name">Wind</div>
+    <div class="main__description">
+      {{weather.current.condition.text}}
     </div>
 
   </div>
+
+  <!-- Section More Details -->
+  <div class="details">
+    <div class="detail__name">MORE DETAILS:</div>
+    <div class="detail__information--name">Wind speed:
+      <span class="detail__information---stat">{{weather.current.wind_mph }}<sup>mph</sup></span>
+    </div>
+    <div class="detail__information--name">Air humidity:
+      <span class="detail__information---stat">{{weather.current.humidity }}<sup>%</sup></span>
+    </div>
+    <div class="detail__information--name">Pressure:
+      <span class="detail__information---stat">{{weather.current.pressure_mb}} <sup>millibars</sup></span>
+    </div>
+    <div class="detail__information--name">Precipitacion probability
+      <span class="detail__information---stat">{{weather.current.precip_mm }}</span>
+    </div>
+  </div>
+
+  <!-- section weather hours -->
+  <div class="hours">
+
+    <ng-container *ngFor="let forecastday of weather?.forecast.forecastday">
+      <ng-container *ngFor="let hour of forecastday.hour">
+        <div class="hours__container">
+          <img [src]="hour.condition.icon" alt="hour.condition.text">
+          <div class="hour__details">
+            <div class="hour__details__temp"><span>{{ hour.temp_c}}&#8451;</span></div>
+            <div class="hour__details__time"><span>{{ hour.time | date: 'HH:mm'}}</span></div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+
+  </div>
+
+</div>
+
+<!-- section weather days -->
+<div class="days">
+  dias
 </div>

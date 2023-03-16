@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
 
 :root{
   --main-color: #8919f1;
@@ -22,7 +22,8 @@ html, body, div, input {
 
 body {
   font-family: 'Lato', sans-serif;
-  background-color: var(--secondary-color);
+  background: url(./app/shared/images/bg.jpg) no-repeat center fixed;
+  background-size: cover;
   font-size: 1rem;
   line-height: 1.5;
   color: var(--grey);
@@ -33,7 +34,7 @@ a {
 }
 
 .container {
-  width: 50%;
+  width: 90%;
 }
 
 /* Utilitys */

@@ -14,8 +14,7 @@ export class WeatherInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     const cloneRequest = req.clone({
       params: req.params.appendAll({
-        units: 'metric',
-        appid: enviroment.openWeather.key
+        key: enviroment.WeatherApi.key
       })
     });
     return next.handle(cloneRequest);
