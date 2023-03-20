@@ -20,7 +20,7 @@ export class WeatherService {
   public getWeatherHoursByName(city: string): Observable<Weather> {
     const params = new HttpParams()
       .set('q', city)
-      .set('days', 1)
+      .set('days', 7)
       .set('aqui', 'no')
       .set('alerts', 'no');
 

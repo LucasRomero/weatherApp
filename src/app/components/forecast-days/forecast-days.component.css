@@ -1,0 +1,47 @@
+.days {
+  display: flex;
+  width: 100%;
+  overflow-x: auto
+}
+
+.days .day__wrap {
+  min-width: 150px;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.day__wrap .day__day {
+  font-weight: 700;
+}
+
+.day__wrap .day__date {
+  color: #808080;
+  font-size: 0.95rem;
+}
+
+.day__wrap .day__min__max {
+  margin: 10px 0 10px 0;
+}
+
+.day__wrap .day__min__max .day__temp__value {
+  font-weight: 700;
+}
+
+.day__wrap .day__description {
+  color: #808080;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.days::-webkit-scrollbar {
+  width: 10px;
+}
+
+.days::-webkit-scrollbar-thumb {
+  background-color: #242323;
+  border-radius: 10px;
+}
+
+.days::-webkit-scrollbar-track {
+  background-color: transparent;
+}

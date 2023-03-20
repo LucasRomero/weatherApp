@@ -84,6 +84,11 @@
   text-align: start;
 }
 
+.sys .sys__image {
+  height: 100px;
+}
+
+
 .main {
   width: 300px;
   padding: 15px;
@@ -145,4 +150,25 @@
   margin: 15px 0 15px 0;
   font-size: 4rem;
   font-weight: 700;
+}
+
+.line {
+  margin-top: 50px;
+  width: 100%;
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+.hours::-webkit-scrollbar {
+  width: 10px;
+}
+
+.hours::-webkit-scrollbar-thumb {
+  background-color: #242323;
+  border-radius: 10px;
+}
+
+.hours::-webkit-scrollbar-track {
+  background-color: transparent;
 }

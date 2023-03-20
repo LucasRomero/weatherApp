@@ -2,9 +2,13 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
+  OnChanges,
   OnInit
 } from '@angular/core';
-import { Weather, Hour } from '../../shared/interfaces/weather.interface';
+import {
+  Weather,
+  Forecastday
+} from '../../shared/interfaces/weather.interface';
 
 @Component({
   selector: 'app-weather',
@@ -12,32 +16,30 @@ import { Weather, Hour } from '../../shared/interfaces/weather.interface';
   styleUrls: ['./weather.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class WeatherComponent implements OnInit {
+export class WeatherComponent implements OnInit, OnChanges {
   @Input() weather: Weather;
-  private weatherCopy: Weather;
-  private hours: Hour[];
+  forecastDay: Forecastday[];
 
   ngOnInit(): void {
-    this.weatherCopy = this.weather;
-    this.getHours();
-    this.weatherHours();
+    this.getForecast();
+    //this.weatherHours();
   }
 
-  private getHours(): void {
-    if (this.weather) {
-      this.weather.forecast.forecastday.forEach((day) => {
-        this.hours = day.hour;
-      });
-    }
+  ngOnChanges() {
+    // When input get new information, this refresh the array
+    this.getForecast();
+    //this.weatherHours();
   }
 
-  private weatherHours(): void {
-    if (this.hours) {
-      const index = this.hours.findIndex((hour) => {
-        return new Date(hour.time).getHours() == new Date().getHours();
-      });
-      this.hours.splice(0, index);
-      console.log(this.hours);
-    }
+  getForecast() {
+    this.forecastDay = [...this.weather.forecast.forecastday];
   }
+
+  // private weatherHours(): void {
+  //   const index = this.hours.findIndex((hour) => {
+  //     return new Date(hour.time).getHours() == new Date().getHours();
+  //   });
+  //   this.hours.splice(0, index);
+  //   console.log(this.hours);
+  // }
 }
