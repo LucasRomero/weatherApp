@@ -84,6 +84,7 @@ export interface Hour {
 }
 
 export interface Forecastday {
+  select: boolean;
   date: string;
   date_epoch: number;
   day: Day;

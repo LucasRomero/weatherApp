@@ -1,14 +1,14 @@
 import {
+  Forecastday,
+  Current
+} from '../../shared/interfaces/weather.interface';
+import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnChanges,
   OnInit
 } from '@angular/core';
-import {
-  Weather,
-  Forecastday
-} from '../../shared/interfaces/weather.interface';
+import { Weather } from '../../shared/interfaces/weather.interface';
 
 @Component({
   selector: 'app-weather',
@@ -16,23 +16,43 @@ import {
   styleUrls: ['./weather.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class WeatherComponent implements OnInit, OnChanges {
+export class WeatherComponent implements OnInit {
   @Input() weather: Weather;
-  forecastDay: Forecastday[];
+  selectedWeather: Weather;
+  forecastDay: Forecastday;
+  CurrentDay = true;
+  today: string;
 
   ngOnInit(): void {
-    this.getForecast();
-    //this.weatherHours();
+    this.selectedWeather = structuredClone(this.weather);
+    this.forecastDay = this.selectedWeather.forecast.forecastday[0];
+    this.today = this.forecastDay.date;
   }
 
-  ngOnChanges() {
-    // When input get new information, this refresh the array
-    this.getForecast();
-    //this.weatherHours();
+  onFilterWeather(forecastDay: Forecastday) {
+    // refresh selectedWeather with selected day
+    this.selectedWeather = {
+      ...this.weather,
+      forecast: {
+        forecastday: this.getForecastDay(forecastDay)
+      }
+    };
+
+    this.forecastDay = forecastDay;
+
+    const isToday = forecastDay.date === this.today;
+    this.CurrentDay = isToday;
   }
 
-  getForecast() {
-    this.forecastDay = [...this.weather.forecast.forecastday];
+  getForecastDay(forecastDay: Forecastday): Forecastday[] {
+    const Day = this.weather.forecast.forecastday.find((x) => {
+      if (forecastDay.date == x.date) {
+        return x;
+      }
+      return null;
+    });
+
+    return [Day] ?? [forecastDay];
   }
 
   // private weatherHours(): void {
