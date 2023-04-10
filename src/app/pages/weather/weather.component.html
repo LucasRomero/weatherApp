@@ -5,13 +5,13 @@
     <img class="sys__image" src="{{ forecastDay.day.condition.icon }}" alt="{{forecastDay.day.condition.icon}}">
     <div class="sys__information">
       <div class="sys__information--name">Sunrise:
-        <span class="sys__information--stat">{{forecastDay.astro.sunrise}}</span>
+        <span class="sys__information--stat">{{ forecastDay.astro.sunrise }}</span>
       </div>
     </div>
 
     <div class="sys__information">
       <div class="sys__information--name">Sunset:
-        <span class="sys__information--stat">{{forecastDay.astro.sunset}}</span>
+        <span class="sys__information--stat">{{ forecastDay.astro.sunset }}</span>
       </div>
     </div>
   </div>
@@ -19,18 +19,21 @@
   <!-- Section Main -->
   <div class="main">
     <div class="main__date">{{ forecastDay.date | date:'fullDate' }}</div>
-    <div class="main__temp">{{ forecastDay.day.maxtemp_c | number:'1.0-0' }}&#8451;</div>
+    <div *ngIf="CurrentDay" class="main__temp">{{ selectedWeather.current.temp_selected | number:'1.0-0' }}{{ icon_temperature }}</div>
+    <div *ngIf="!CurrentDay" class="main__temp">{{ forecastDay.day.maxtemp_selected | number:'1.0-0' }}{{ icon_temperature }}</div>
 
     <div *ngIf="CurrentDay" class="main__feel">Feels like
-      <span class="main__feels_like">{{ selectedWeather.current.feelslike_c }}&#8451;</span>
+      <span class="main__feels_like">{{ selectedWeather.current.feelslike_selected  | number:'1.0-0' }}
+        <span>{{ icon_temperature }}</span>
+      </span>
     </div>
 
     <div *ngIf="CurrentDay" class="main__description">
-      {{ selectedWeather.current.condition.text}}
+      {{ selectedWeather.current.condition.text }}
     </div>
 
     <div *ngIf="!CurrentDay" class="main__description">
-      {{ forecastDay.day.condition.text}}
+      {{ forecastDay.day.condition.text }}
     </div>
 
   </div>
@@ -39,32 +42,29 @@
   <div class="details" *ngIf="CurrentDay">
     <div class="detail__name">MORE DETAILS:</div>
     <div class="detail__information--name">Wind speed:
-      <span class="detail__information---stat">{{ selectedWeather.current.wind_mph }}<sup>mph</sup></span>
+      <span class="detail__information---stat">{{ selectedWeather.current.wind_selected }}<sup>{{ wind }}</sup></span>
     </div>
     <div class="detail__information--name">Air humidity:
       <span class="detail__information---stat">{{ selectedWeather.current.humidity }}<sup>%</sup></span>
     </div>
     <div class="detail__information--name">Pressure:
-      <span class="detail__information---stat">{{ selectedWeather.current.pressure_mb }} <sup>millibars</sup></span>
+      <span class="detail__information---stat">{{ selectedWeather.current.pressure_selected }} <sup>{{ pressure }}</sup></span>
     </div>
-    <div class="detail__information--name">Precipitacion probability
-      <span class="detail__information---stat">{{ selectedWeather.current.precip_mm }}</span>
+    <div class="detail__information--name">Precipitacion probability:
+      <span class="detail__information---stat">{{ selectedWeather.current.precip_selected }} <sup>{{ precipitation }}</sup></span>
     </div>
   </div>
 
   <div class="details" *ngIf="!CurrentDay">
     <div class="detail__name">MORE DETAILS:</div>
     <div class="detail__information--name">Wind speed:
-      <span class="detail__information---stat">{{ forecastDay.day.maxwind_mph }}<sup>mph</sup></span>
+      <span class="detail__information---stat">{{ forecastDay.day.maxtemp_selected }}<sup>{{ wind }}</sup></span>
     </div>
     <div class="detail__information--name">Air humidity:
       <span class="detail__information---stat">{{ forecastDay.day.avghumidity }}<sup>%</sup></span>
     </div>
-    <!-- <div class="detail__information--name">Pressure:
-      <span class="detail__information---stat">{{selectedWeather.current.pressure_mb}} <sup>millibars</sup></span>
-    </div> -->
-    <div class="detail__information--name">Precipitacion probability
-      <span class="detail__information---stat">{{ forecastDay.day.totalprecip_mm }}</span>
+    <div class="detail__information--name">Precipitacion probability:
+      <span class="detail__information---stat">{{ forecastDay.day.totalprecip_selected }} <sup>{{ precipitation }}</sup></span>
     </div>
   </div>
 
@@ -76,8 +76,8 @@
         <div class="hours__container">
           <img [src]="hour.condition.icon" alt="hour.condition.text">
           <div class="hour__details">
-            <div class="hour__details__temp"><span>{{ hour.temp_c}}&#8451;</span></div>
-            <div class="hour__details__time"><span>{{ hour.time | date: 'HH:mm'}}</span></div>
+            <div class="hour__details__temp"><span>{{ hour.temp_selected | number:'1.0-0' }} {{ icon_temperature }}</span></div>
+            <div class="hour__details__time"><span>{{ hour.time | date: 'HH:mm' }}</span></div>
           </div>
         </div>
       </ng-container>
@@ -88,7 +88,7 @@
   <!-- section weather days -->
   <hr class="line">
   <div class="forecast__component container">
-    <app-forecast-days [forecastDay]=weather.forecast.forecastday (forecastDayOutput)="onFilterWeather($event)" ></app-forecast-days>
+    <app-forecast-days [icon_temperature]="icon_temperature" [forecastDay]=weather.forecast.forecastday (forecastDayOutput)="onFilterWeather($event)" ></app-forecast-days>
   </div>
 
 </div>

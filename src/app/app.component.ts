@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Weather } from './shared/interfaces/weather.interface';
 import { WeatherService } from './pages/weather/services/weather.service';
 import { GeoLocationService } from './shared/services/geo-location.service';
+import { Temperature } from './enums/temperature';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,8 @@ import { GeoLocationService } from './shared/services/geo-location.service';
 })
 export class AppComponent implements OnInit {
   weather: Weather;
+  selectedTemperature: number = Temperature.Celsius;
+
   constructor(
     private readonly weatherService: WeatherService,
     private readonly geoLocationService: GeoLocationService
@@ -33,6 +36,10 @@ export class AppComponent implements OnInit {
       this.weather = resp;
       console.log(this.weather);
     });
+  }
+
+  onChangeTemp(temperature: number): void {
+    this.weatherService.onChangeTemprature(temperature);
   }
 
   // private async getLocation(): Promise<void> {

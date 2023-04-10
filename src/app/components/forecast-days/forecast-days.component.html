@@ -1,22 +1,21 @@
 <div class="days">
   <ng-container *ngFor="let day of forecastDay">
     <div class="day__wrap" [ngClass]="{ 'select': day.select }" (click)="onChange(day)">
-      <div class="day__day">{{day.date | date: 'EEEE'}}</div>
-      <div class="day__date">{{day.date | date: 'dd MMMM'}}</div>
+      <div class="day__day">{{ day.date | date: 'EEEE' }}</div>
+      <div class="day__date">{{ day.date | date: 'dd MMMM' }}</div>
       <div class="day__min__max">
         <div class="day__min">
           <span class="day__temp__name">max. </span>
-          <span class="day__temp__value">{{ day.day.maxtemp_c | number:'1.0-0' }}</span>
+          <span class="day__temp__value">{{ day.day.maxtemp_selected | number:'1.0-0' }} {{ icon_temperature }}</span>
         </div>
         <div class="day__max">
           <span class="day__temp__namen">min. </span>
           <span class="day__temp__value">
-            {{ (day.day.mintemp_c - day.day.mintemp_c) > 0.1 ? '+' : '' }}{{ day.day.mintemp_c | number: '1.0-0'
-            }}</span>
+            {{ day.day.mintemp_selected | number: '1.0-0' }} {{ icon_temperature }}</span>
         </div>
       </div>
       <img [src]="day.day.condition.icon" [alt]="day.day.condition.text">
-      <div class="day__description">{{day.day.condition.text}}</div>
+      <div class="day__description">{{ day.day.condition.text }}</div>
     </div>
   </ng-container>
 </div>

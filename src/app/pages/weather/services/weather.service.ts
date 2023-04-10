@@ -1,13 +1,15 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Weather } from '../../../shared/interfaces/weather.interface';
 import { enviroment } from '../../../../enviroments/enviroment.prod';
+import { Temperature } from '../../../enums/temperature';
 
 @Injectable({ providedIn: 'root' })
 export class WeatherService {
   private readonly API_URL_WEATHER = enviroment.WeatherApi.url;
-  private readonly API_KEY_WEATHER = enviroment.WeatherApi.key;
+  temperature = new BehaviorSubject<number>(Temperature.Celsius);
+  // private readonly API_KEY_WEATHER = enviroment.WeatherApi.key;
 
   constructor(private readonly http: HttpClient) {}
 
@@ -29,6 +31,9 @@ export class WeatherService {
     });
   }
 
+  onChangeTemprature(temperature: number): void {
+    this.temperature.next(temperature);
+  }
   // public getWeatherByCoords(coord: Coord): Observable<Weather> {
   //   const params = new HttpParams()
   //     .set('lat', coord.latitude)

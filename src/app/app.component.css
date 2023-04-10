@@ -2,6 +2,12 @@ nav.nav {
  padding: 0.75rem 0.50rem;
  background: url(./shared/images/bg.jpg);
  margin-bottom: 0.75rem;
+ display: flex;
+ gap: 20px;
+ flex-wrap: wrap;
+ align-content: center;
+ justify-content: flex-start;
+ align-items: center;
 }
 
 nav.nav .brand{
@@ -9,4 +15,9 @@ nav.nav .brand{
   font-weight: 600;
   line-height: 1.75rem;
   font-size: 1.50rem;
+}
+
+.temp {
+  color: var(--white);
+  cursor: pointer;
 }
