@@ -4,7 +4,7 @@ import {
   Input,
   Output,
   OnInit,
-  ChangeDetectionStrategy
+  OnChanges
 } from '@angular/core';
 import { Forecastday } from '../../shared/interfaces/weather.interface';
 import { Temperature_Icon } from 'src/app/enums/temperature';
@@ -14,10 +14,14 @@ import { Temperature_Icon } from 'src/app/enums/temperature';
   templateUrl: './forecast-days.component.html',
   styleUrls: ['./forecast-days.component.css']
 })
-export class ForecastDaysComponent implements OnInit {
+export class ForecastDaysComponent implements OnInit, OnChanges {
   @Input() forecastDay: Forecastday[];
   @Input() icon_temperature = Temperature_Icon.Celsius;
   @Output() forecastDayOutput = new EventEmitter<Forecastday>();
+
+  ngOnChanges(): void {
+    this.forecastDay[0].select = true;
+  }
 
   ngOnInit(): void {
     this.forecastDay[0].select = true;

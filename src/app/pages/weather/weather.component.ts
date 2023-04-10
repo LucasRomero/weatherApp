@@ -1,12 +1,5 @@
 import { Forecastday } from '../../shared/interfaces/weather.interface';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges
-} from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Weather } from '../../shared/interfaces/weather.interface';
 import {
   Temperature,
@@ -39,20 +32,22 @@ export class WeatherComponent implements OnInit, OnChanges {
   constructor(private readonly weatherService: WeatherService) {}
 
   ngOnChanges(): void {
-    this.setTemperature(this.temperatureSelected);
+    this.initialize();
   }
 
   ngOnInit(): void {
-    this.selectedWeather = structuredClone(this.weather);
-    this.forecastDay = this.selectedWeather.forecast.forecastday[0];
-    this.today = this.forecastDay.date;
-
-    this.setTemperature(this.temperatureSelected);
-
+    this.initialize();
     this.weatherService.temperature.subscribe((temp) => {
       this.temperatureSelected = temp;
       this.setTemperature(temp);
     });
+  }
+
+  initialize(): void {
+    this.selectedWeather = structuredClone(this.weather);
+    this.forecastDay = this.selectedWeather.forecast.forecastday[0];
+    this.today = this.forecastDay.date;
+    this.setTemperature(this.temperatureSelected);
   }
 
   onFilterWeather(forecastDay: Forecastday) {
